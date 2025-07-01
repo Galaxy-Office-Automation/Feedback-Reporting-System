@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import FeedbackWidget from './Components/FeedbackWidget'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import FeedbackWidget from './Components/FeedbackWidget';
+import AdminDashboard from './Pages/AdminDashboard'; // ← rename or adjust path
 
-
-function App() {
-  
-
+const App = () => {
   return (
-    <>
-      <FeedbackWidget />
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<FeedbackWidget />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

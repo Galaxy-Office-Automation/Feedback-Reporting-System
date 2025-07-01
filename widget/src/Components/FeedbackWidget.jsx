@@ -1,55 +1,64 @@
-import React, { useState } from 'react'
-import html2canvas from 'html2canvas'
-import axios from 'axios'
-import './FeedbackWidget.css'
+import React, { useState } from 'react';
+import html2canvas from 'html2canvas';
+import axios from 'axios';
+import './FeedbackWidget.css';
 
 const FeedbackWidget = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [note, setNote] = useState('')
-  const [tag, setTag] = useState('UI-Bug')
-  const [screenshot, setScreenshot] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const [note, setNote] = useState('');
+  const [tag, setTag] = useState('UI-Bug');
+  const [loading, setLoading] = useState(false);
 
-  const toggleWidget = () => setIsOpen(!isOpen)
+  const toggleWidget = () => setIsOpen(!isOpen);
 
-  const captureScreenshot = async () => {
-    const canvas = await html2canvas(document.body)
-    const imgData = canvas.toDataURL('image/jpeg', 0.7)
-    setScreenshot(imgData)
-  }
+  // Capture logs into memory
+  const logs = [];
+  const originalLog = console.log;
+  console.log = (...args) => {
+    logs.push(args.map(String).join(' '));
+    originalLog(...args);
+  };
 
   const handleSubmit = async () => {
-    if (!note) return alert('Please enter a note')
-    setLoading(true)
-
-    const metadata = {
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      custom: window.FEEDBACK_META || {},
-    }
-
-    const formData = new FormData()
-    formData.append('note', note)
-    formData.append('tag', tag)
-    formData.append('metadata', JSON.stringify(metadata))
-    if (screenshot) {
-      const blob = await (await fetch(screenshot)).blob()
-      formData.append('screenshot', blob, 'screenshot.jpg')
-    }
+    if (!note.trim()) return alert('Please enter a note');
+    setLoading(true);
 
     try {
-      await axios.post('http://localhost:3001/feedback', formData)
-      alert('Feedback submitted!')
-      setNote('')
-      setScreenshot(null)
-      setIsOpen(false)
+      // Hide widget temporarily before screenshot
+      const widget = document.querySelector('.feedback-modal');
+      if (widget) widget.style.display = 'none';
+
+      const canvas = await html2canvas(document.body);
+      const imgData = canvas.toDataURL('image/jpeg', 0.7);
+      const blob = await (await fetch(imgData)).blob();
+
+      if (widget) widget.style.display = ''; // Show it again
+
+      const metadata = {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        consoleLogs: logs,
+        custom: window.FEEDBACK_META || {},
+      };
+
+      const formData = new FormData();
+      formData.append('note', note);
+      formData.append('tag', tag);
+      formData.append('metadata', JSON.stringify(metadata));
+      formData.append('screenshot', blob, 'screenshot.jpg');
+
+      await axios.post('http://localhost:3001/feedback', formData);
+
+      alert('✅ Feedback submitted!');
+      setNote('');
+      setIsOpen(false);
     } catch (error) {
-      console.error(error)
-      alert('Submission failed')
+      console.error('❌ Submission failed:', error);
+      alert('❌ Submission failed');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -57,10 +66,10 @@ const FeedbackWidget = () => {
         <div className="feedback-modal">
           <h3>Submit Feedback</h3>
           <select value={tag} onChange={(e) => setTag(e.target.value)}>
-            <option>UI-Bug</option>
-            <option>Content</option>
-            <option>Idea</option>
-            <option>Other</option>
+            <option value="UI-Bug">UI Bug</option>
+            <option value="Content">Content</option>
+            <option value="Idea">Idea</option>
+            <option value="Other">Other</option>
           </select>
           <textarea
             maxLength={140}
@@ -68,27 +77,15 @@ const FeedbackWidget = () => {
             value={note}
             onChange={(e) => setNote(e.target.value)}
           />
-
-
-          {/* Capture Screenshot button */}
-          <button onClick={captureScreenshot}>📸 Capture Screenshot</button>
-          {screenshot && <img src={screenshot} alt="preview" className="preview-img" />}
-          
-          {/* Submitt feedback button  */}
           <button onClick={handleSubmit} disabled={loading}>
             {loading ? 'Submitting...' : 'Submit Feedback'}
           </button>
-
-          {/* Cancel button  */}
           <button onClick={toggleWidget}>Cancel</button>
         </div>
       )}
-
-      <button className="feedback-button" onClick={toggleWidget}>
-        💬
-      </button>
+      <button className="feedback-button" onClick={toggleWidget}>💬</button>
     </>
-  )
-}
+  );
+};
 
-export default FeedbackWidget
+export default FeedbackWidget;
