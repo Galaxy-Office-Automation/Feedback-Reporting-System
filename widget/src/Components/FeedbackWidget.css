@@ -17,45 +17,44 @@ body {
 
 /* Floating Button */
 .feedback-button {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(to right, var(--primary), var(--primary-dark));
-  color: white;
-  font-size: 26px;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 999;
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: linear-gradient(to right, var(--primary), var(--primary-dark)) !important;
+  color: white !important;
+  font-size: 26px !important;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4) !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  z-index: 999 !important;
 }
 
 .feedback-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 16px 32px rgba(99, 102, 241, 0.5);
+  transform: scale(1.08) !important;
+  box-shadow: 0 16px 32px rgba(99, 102, 241, 0.5) !important;
 }
 
 /* Modal */
 .feedback-modal {
-    position: fixed;
-    bottom: 100px;
-    right: 24px;
-    width: 360px;
-    max-height: 90vh;
-    overflow-y: auto; /* allow scrolling */
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    gap: 16px;
-  }
-  
+  position: fixed !important;
+  bottom: 100px !important;
+  right: 24px !important;
+  width: 360px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+  gap: 16px !important;
+}
 
 /* Animation */
 @keyframes fadeInUp {
@@ -70,84 +69,84 @@ body {
 }
 
 .feedback-modal h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text-color);
+  margin: 0 !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--text-color) !important;
 }
 
 /* Dropdown */
 .feedback-modal select {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--subtle-border);
-  font-size: 15px;
-  background: #fff;
-  color: #374151;
-  transition: border 0.2s ease;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--subtle-border) !important;
+  font-size: 15px !important;
+  background: #fff !important;
+  color: #374151 !important;
+  transition: border 0.2s ease !important;
 }
 
 .feedback-modal select:focus {
-  border-color: var(--primary);
-  outline: none;
+  border-color: var(--primary) !important;
+  outline: none !important;
 }
 
 /* Textarea */
 .feedback-modal textarea {
-  width: 100%;
-  min-height: 80px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid var(--subtle-border);
-  background: #f9fafb;
-  color: var(--text-color);
-  font-size: 14px;
-  resize: vertical;
-  transition: border 0.2s ease;
+  width: 100% !important;
+  min-height: 80px !important;
+  padding: 12px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--subtle-border) !important;
+  background: #f9fafb !important;
+  color: var(--text-color) !important;
+  font-size: 14px !important;
+  resize: vertical !important;
+  transition: border 0.2s ease !important;
 }
 
 .feedback-modal textarea:focus {
-  border-color: var(--primary);
-  outline: none;
-  background: #fff;
+  border-color: var(--primary) !important;
+  outline: none !important;
+  background: #fff !important;
 }
 
 /* Buttons */
 .feedback-modal button {
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: 600;
-  border: none;
-  background: linear-gradient(to right, var(--primary), var(--primary-dark));
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 12px !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  background: linear-gradient(to right, var(--primary), var(--primary-dark)) !important;
+  color: white !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .feedback-modal button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3) !important;
 }
 
 .feedback-modal button:disabled {
-  background: #cbd5e1;
-  cursor: not-allowed;
-  box-shadow: none;
+  background: #cbd5e1 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
 }
 
 /* Screenshot Preview */
 .preview-img {
-  width: 100%;
-  max-height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 8px;
-  border: 1px solid var(--subtle-border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  cursor: zoom-in;
-  transition: transform 0.2s ease;
+  width: 100% !important;
+  max-height: 120px !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+  margin-top: 8px !important;
+  border: 1px solid var(--subtle-border) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  cursor: zoom-in !important;
+  transition: transform 0.2s ease !important;
 }
 
 .preview-img:hover {
-  transform: scale(1.03);
+  transform: scale(1.03) !important;
 }
