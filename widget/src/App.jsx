@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FeedbackWidget from './Components/FeedbackWidget';
-import AdminDashboard from './Pages/AdminDashboard'; // ← rename or adjust path
+import AdminDashboard from './Pages/AdminDashboard';
 
-const App = () => {
-  return (
-    <Router>
+const App = () => (
+  <React.StrictMode>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<FeedbackWidget />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/*" element={<FeedbackWidget />} />
       </Routes>
-    </Router>
-  );
-};
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
 export default App;

@@ -7,7 +7,7 @@ const FeedbackSchema = new mongoose.Schema({
   userAgent: String,
   metadata: Object,
   consoleLogs: [String],
-  screenshot: String, // filename
+  screenshot: { type: String }, // GridFS file ID as string
   status: { type: String, default: 'Open' },
   createdAt: { type: Date, default: Date.now },
 });
